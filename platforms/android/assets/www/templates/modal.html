@@ -1,0 +1,19 @@
+<div class="modal">
+	<ion-header-bar>
+		<h1 class="title">Sign it!</h1>
+	</ion-header-bar>
+	<ion-content>
+  Select your favorite color: <input type="color" name="favcolor" ng-model="penColor"><br>
+
+		<canvas width="440" height="400" id="canvas" camImage="{{lastPhoto}}" drawing data-tap-disabled="false" scale=6></canvas>
+		
+		<div class="bar bar-footer bar-balanced">
+		  	
+			<button class="button button-balanced" ng-click="saveToGallery()">Save and Share</button>
+			<button class="button button-assertive"  ng-click="closeModal()">Again?</button>
+		</div>
+
+		
+		
+	</ion-content>
+</div>
