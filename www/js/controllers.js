@@ -6,6 +6,7 @@ angular.module('starter.controllers', [])
         $scope.penColor = data;
     });
 
+
     $ionicModal.fromTemplateUrl('templates/modal.html', {
         scope: $scope,
         animation: 'slide-in-up'
@@ -31,20 +32,29 @@ angular.module('starter.controllers', [])
         // Execute action
     });
 
-    $scope.takePicture = function() {
+    $scope.isReset = -1;
+
+    $scope.reset = function() {
+        $scope.isReset *= -1;
+    };
+
+
+    $scope.takePicture = function(source) {
+
+
         $cordovaCamera.getPicture().then(function(imageURI) {
             //console.log(imageURI);
             $scope.lastPhoto = imageURI;
             $scope.openModal();
         }, function(err) {
-            console.err(err);
+            console.log(err);
         }, {
             quality: 90,
             // targetWidth: $window.innerWidth,
             // targetHeight: $window.innerHeight,
             saveToPhotoAlbum: true,
-            //destinationType: 'Camera.DestinationType.FILE_URI'  for file reference
-            destinationType: 'Camera.DestinationType.DATA_URL'
+            sourceType: source,
+            destinationType: Camera.DestinationType.DATA_URL
         });
     };
 
@@ -160,9 +170,18 @@ angular.module('starter.controllers', [])
             scope.$watch('lastPhoto', function() {
                 image.src = attrs.camimage;
                 image.onload = function() {
-                    ctx.drawImage(image, 0, 0, image.width / 10, image.height / 10);
+                    ctx.drawImage(image, 0, 0, image.width / 5, image.height / 5);
                 };
                 //draw dummy image
+            });
+
+            scope.$watch('isReset', function() {
+                reset();
+                var image = new Image();
+                image.src = attrs.camimage;
+                image.onload = function() {
+                    ctx.drawImage(image, 0, 0, image.width / 5, image.height / 5);
+                };
             });
 
             ionic.on('touchstart', function(event) {
@@ -237,6 +256,7 @@ angular.module('starter.controllers', [])
 
             // canvas reset
             function reset() {
+                console.log(element);
                 element[0].width = element[0].width;
             }
 

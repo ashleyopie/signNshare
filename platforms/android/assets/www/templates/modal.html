@@ -7,10 +7,11 @@
 
 		<canvas width="440" height="400" id="canvas" camImage="{{lastPhoto}}" drawing data-tap-disabled="false" scale=6></canvas>
 		
-		<div class="bar bar-footer bar-balanced">
+		<div class="bar bar-footer">
 		  	
 			<button class="button button-balanced" ng-click="saveToGallery()">Save and Share</button>
-			<button class="button button-assertive"  ng-click="closeModal()">Again?</button>
+			<button class="button button-balanced" ng-click="reset()">Clear</button>
+			<button class="button button-assertive"  ng-click="$destroy; takePicture()">Again?</button>
 		</div>
 
 		
